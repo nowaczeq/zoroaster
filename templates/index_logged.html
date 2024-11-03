@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+{% block title %}
+    Hi, {{ name}}!
+{% endblock %}
+
+{% block body %}
+    <div class = "error">
+    {{ error }}
+    </div>
+    <div class="topdivide"></div>
+        <img src="/static/graphics/mainlogo.svg" style="height: 400px; width: 340px" class="body-centered logo"></img>
+    <br>
+    <h1 class= "centered">Hello, {{ name }}.</h1>
+    <h2 class = "centered">Welcome back to Zoroaster: A musical app for mental wellbeing</h2>
+    <br><br>
+    <div class="container centered">
+        <p> Zoroaster is an application which allows you to express your feelings through creating music.</p>
+    <p>Create short, 15 second pieces using the background theme and instruments of your choosing.</p>
+    </div>
+    <div class="container centered">
+        <table>
+            <tr>
+            <form action="/track1">
+                <button class="btn btn-primary" type="submit">Create track</button>
+            </form>
+            </tr>
+    </table>
+    <br> <br>
+    <br> <br>
+{% endblock %}

@@ -1,0 +1,48 @@
+1. Program front website (index.html)
+    with GET
+        -include logo and bar at the top with buttons to log in and register
+        -DONE: include a short description of the project
+        -DONE: allow users to log in
+        -add JS code to highlight buttons hovered-over
+        -use Bootstrap for smooth logo and transitions
+    with POST
+        -allow users to begin the creation of a track normally (TO: )
+        -allow users to begin a guided tutorial of track creation (TO: )
+        -show a short description of the app
+
+2. Program registration (register.html)
+    -DONE: Allow users to set their own username and password
+    -DONE: Insert them into the SQL database
+    -DONE: Reprompt for taken usernames (and optionally invalid passwords)
+
+3. Program login (login.html)
+    -DONE: Allow users to input their username and password
+    -DONE: Search through the SQL database for their data and reprompt for errors
+
+4. Program acknowledgemenets (thankyou.html)
+    -DONE: Acknowledge contribution of CS50 PSET9 "Finance"
+    -DONE: Acknowledge Cove
+
+5.Program track history (history.html)
+    -Allow users to see the tracks they created in the past
+    -Allow users to listen to the tracks they created
+
+6. Program track creation (track.html) (might be needed to split into several)
+    -DONE: Prompt users to select their current mood through buttons
+    -Allow them to optionally enter their own custom moods
+
+    -Give the user a choice for a background theme
+
+    -DONE:Program a trackline where users can put their notes.
+    -DONE:Program a line that goes from the left to the right showcasing track looping
+    -DONE:Show three types of notes to the user
+    -DONE:Allow users to hear the note when pressing play
+    -DONE:Create a button that represents the note which can be dragged on the trackline.
+    -DONE:Allow users to drag the note of their choosing on the track
+    -DONE:se JS code to put symbols where users select to put a note
+    -Allow users to press a button after they're done
+    -Allow users to name their songs
+    -Allow users to input their mood again
+    -Store the track, the name, the initial moods, and the following moods, in the SQL database
+
+

@@ -1,0 +1,73 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Create Track
+{% endblock %}
+
+{% block body %}
+    <div class="topdivide"></div>
+    <h3 class = "centered"> Hello there! Let's begin creating a song.</h3>
+    <br>
+    <div class = "error">
+    {{ error }}
+    </div>
+    <br>
+    <h4 class = "centered">How are you feeling today?</h4>
+    <br>
+    <form class = "centered moodbutton" action="/track1" method="post">
+        <div class="btn-group" role="group" aria-label="Basic example">
+            {% for mood in moods_firsthalf %}
+            <button type="button" class="btn btn-secondary" value = "{{ mood }}">{{ mood }}</button>
+            {% endfor %}
+          </div>
+          <div class="btn-group" role="group" aria-label="Basic example">
+            {% for mood in moods_secondhalf %}
+            <button type="button" class="btn btn-secondary" value = "{{ mood }}">{{ mood }}</button>
+            {% endfor %}
+          </div>
+        <br><br><br>
+        <br>
+        <button class="btn btn-primary centred submitmoods" type="submit">Create track</button>
+    </form>
+    <script>
+        document.addEventListener('DOMContentLoaded', function()
+        {
+            let moodbuttons = document.querySelectorAll('.btn-secondary');
+            let moods = [];
+            moodbuttons.forEach(function(button)
+            {
+                button.addEventListener('click', function(e)
+                {
+                    let val = button.value;
+                    if (!moods.includes(val))
+                    {
+                        moods[moods.length] = val;
+                        button.classList.add('moodclicked');
+                    }
+                    else
+                    {
+                        button.classList.remove('moodclicked');
+                        for (let i = 0; i < moods.length; i++){
+                            if (moods[i] == val){
+                                moods.splice(i, 1);
+                            }
+                        }
+                    }
+                    e.preventDefault();
+                    console.log(moods);
+                });
+            });
+
+        document.querySelector('.submitmoods').addEventListener('click', function(e)
+        {
+            let data = JSON.stringify(moods);
+            fetch('/process_moods',
+            {
+                method: 'POST',
+                body: data,
+                headers: {'Content-Type': 'application/json'}
+            });
+        });
+    });
+    </script>
+{% endblock %}

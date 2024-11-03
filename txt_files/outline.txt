@@ -1,0 +1,23 @@
+Project name: Zoroaster: Create Music for Wellbeing
+
+Languages: Python (Flask), HTML, Jinja, CSS, JavaScript, SQLite3
+
+Main feature:
+Create a short, 10 second track, allowing you to express your current feelings.
+Process of using:
+First, prompt the user to pick their current feelings by selecting several buttons.
+Enable them also to input their own feelings through a form.
+Second, enable them to choose a background music for their song.
+Third, show them the possible sound types to add: base, melody, percussion, etc.
+    Display the flow of the track with a wave going from botton to top.
+Fourth, allow users to drag their selected sound on the track.
+    They will be able to hear it when the song loops back to the bottom.
+Fifth, allow them to add the title of the song.
+    Allow them also to input feelings that changed after creating the song.
+
+Additional features:
+1. Save created songs to the database.
+2. Allow users to see the past songs they created.
+3. Show acknowledgements
+4. Show other places for possible wellbeing help.
+5. Make the app mobile user-friendly

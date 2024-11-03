@@ -1,0 +1,98 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    {{ name }}
+{% endblock %}
+
+{% block body %}
+    <div class = "centered" style="color:#FF0000">
+    {{ error }}
+    </div>
+    <div style="height: 100px"></div>
+    <div class="centered">
+      <h3>{{ name }}</h3>
+    </div>
+    <div class="centered">
+        <h4>{{ time }}</h4>
+      </div>
+    <div class="btn-group body-centered d-flex justify-content-center" role="group">
+        {% for mood in moods %}
+        <button type="button" class="btn btn-secondary display_mood" value = "{{ mood }}">{{ mood }}</button>
+        {% endfor %}
+      </div>
+      <div class="centered">
+      </div>
+    <div class="centered">
+        <svg class="bi bi-play" id = "play" xmlns="http://www.w3.org/2000/svg" width="200" height="200" fill="currentColor" class="bi bi-play" viewBox="0 0 16 16">
+            <path d="M10.804 8 5 4.633v6.734L10.804 8zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692z"/>
+        </svg>
+    </div>
+    <div style="height: 100px;"></div>
+    <div>
+      <div position="relative">
+          <img src="/static/graphics/trackline.png" class="rounded mx-auto d-block display_trackline" alt="trackline" width="1902" height="10">
+          <img src="/static/graphics/musicline.png" class="rounded mx-auto d-block display_musicline" id = "display_musicline" alt="musicline">
+      </div>
+      <div style="height: 100px;"></div>
+          <img src="/static/graphics/trackline.png" class="rounded mx-auto d-block display_trackline" alt="trackline" width="1902" height="10">
+      <div style="height: 100px;"></div>
+          <img src="/static/graphics/trackline.png" class="rounded mx-auto d-block display_trackline" alt="trackline" width="1902" height="10">
+      <div style="height: 100px;"></div>
+          <img src="/static/graphics/trackline.png" class="rounded mx-auto d-block display_trackline" alt="trackline" width="1902" height="10">
+      <div style="height: 50px;"></div>
+      <br>
+      {% for key, value in notes.items() %}
+      <button class="display_notes" style="left:{{value}}px" value="{{key}}"></button>
+      {% endfor %}
+  </div>
+    <script>
+        const screenwidth = screen.width;
+        const musiclinepath = 0.98 * screenwidth;
+        let musicline = document.getElementById("display_musicline")
+        let playbutton = document.getElementById('play');
+        var animation = anime({
+            targets: musicline,
+            translateX: musiclinepath, // Total distance to move
+            duration: 7500,  // Animation duration in milliseconds
+            loop: false,       // Loop the animation
+            easing: 'linear',  // Linear easing for smooth motion
+            autoplay: false
+          });
+          playbutton.addEventListener("click", function(e){
+            animation.restart();
+          });
+
+          //PLAY NOTES ON THE MUSICLINE
+          setInterval(function()
+          {
+            var musicline_rect = musicline.getBoundingClientRect();
+            const notes = document.querySelectorAll('.display_notes');
+            notes.forEach(function(button)
+            {
+              var button_rect = button.getBoundingClientRect();
+              if (musicline_rect.right >= button_rect.left && musicline_rect.left <= button_rect.right && musicline_rect.bottom >=
+              button_rect.top && musicline_rect.top <= button_rect.bottom)
+              {
+                let variableName = button.value;
+                fetch(`static/${variableName}.wav`)
+                .then(response => response.blob())
+                .then(blob =>
+                {
+                  const url = URL.createObjectURL(blob);
+                  const audio = new Audio(url);
+                  audio.addEventListener('error', function()
+                  {
+                    console.error('Error occurred when trying to play the audio');
+                  });
+                  audio.play();
+                })
+                .catch(error =>
+                {
+                console.error('Something is no yes', error);
+                });
+              }
+            });
+          }, 200);
+    </script>
+
+{% endblock %}

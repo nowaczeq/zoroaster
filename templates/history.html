@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Track history
+{% endblock %}
+
+{% block body %}
+    <div class="topdivide"></div>
+    <br>
+    <div class = "error">
+    {{ error }}
+    </div>
+    <br>
+    <h3 class = "centered">Here are the tracks you have created.</h3>
+    <br>
+    <div class = "centered body-centered">
+    {% if headers %}
+    <table class = "centered body-centered">
+        <tr>
+            <th>Name</th>
+            <th>Time created</th>
+        </tr>
+        {% for header in headers %}
+        <tr>
+            <td>{{ header['name'] }}</td>
+            <td>{{ header['time'] }}</td>
+            <td>
+                <svg class="bi bi-play play" data-value = "{{ header['name'] }}" xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-play" viewBox="0 0 16 16">
+                    <path d="M10.804 8 5 4.633v6.734L10.804 8zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692z"/>
+                </svg>
+            </td>
+            <td>
+                <td colspan="3" style="height: 20px">
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% else %}
+    <h5 class = "centered">You haven't created any tracks yet.</h5>
+    {% endif %}
+    </div>
+    <script>
+        let play = document.querySelectorAll(".play")
+        play.forEach(function(button)
+        {
+            button.addEventListener("click", function(e){
+                let trackname = button.dataset.value;
+                console.log(trackname);
+                window.location.href = "/trackhistory?trackname=" + trackname;
+            });
+        });
+    </script>
+{% endblock %}

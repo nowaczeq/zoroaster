@@ -1,0 +1,468 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Create Track
+{% endblock %}
+
+{% block body %}
+    <div class = "centered">
+    {{ error }}
+    </div>
+    <div style="height: 100px"></div>
+    <div class="centered">
+      <h3>First, select an instrument.</h3>
+    </div>
+    <div class="centered">
+        <h3>Then, drag its symbol on the trackline to create a note.</h3>
+    </div>
+    <div class="centered">
+      <h3>Finally, press the red button when you're done.</h3>
+    </div>
+    <div style="height: 80px;"></div>
+    <div position="relative">
+        <img src="/static/graphics/trackline.png" class="rounded mx-auto d-block trackline" alt="trackline">
+        <img src="/static/graphics/musicline.png" class="rounded mx-auto d-block musicline" id = "musicline" alt="musicline">
+    </div>
+    <div style="height: 100px;"></div>
+        <img src="/static/graphics/trackline.png" class="rounded mx-auto d-block trackline" alt="trackline">
+    <div style="height: 100px;"></div>
+        <img src="/static/graphics/trackline.png" class="rounded mx-auto d-block trackline" alt="trackline">
+    <div style="height: 100px;"></div>
+        <img src="/static/graphics/trackline.png" class="rounded mx-auto d-block trackline" alt="trackline">
+    <div style="height: 50px;"></div>
+
+    <svg id="trashcan" style="position: absolute; right: 10%" xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+      <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5Zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6Z"/>
+      <path d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1ZM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118ZM2.5 3h11V2h-11v1Z"/>
+    </svg>
+    <br>
+    <div class="topdivide"></div>
+
+      <!--Selection of bases-->
+    <div class="basemenu" id = "basemenu">
+      <div class="dropdown centered">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Base
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          {% for base in bases %}
+          <a class="dropdown-item bases" href="#" value="111">{{base}}</a>
+          {% endfor %}
+        </div>
+        <button id="basedisplay" value = "Select base"></button>
+        <svg id="basetrial" xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" viewBox="0 0 16 16">
+          <path d="M10.804 8 5 4.633v6.734L10.804 8zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692z"/>
+        </svg>
+        <div class="dropdown centered">
+          <button class="btn btn-secondary " type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Pitch
+          </button>
+          <div class="dropdown centered">
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <button class="dropdown-item basepitch" value = " F4">High</button>
+              <button class="dropdown-item basepitch" value = " F3">Medium</button>
+              <button class="dropdown-item basepitch" value = " F2" >Low</button>
+            </div>
+            <button id="basepitchdisplay" value = "pitch">Select pitch</button>
+          </div>
+          <div class = 'dragnote' id = "dragbasenote"></div>
+        </div>
+      </div>
+    </div>
+        <div style="height: 50px;"></div>
+
+
+      <!--Selection of keys-->
+      <div class="keymenu">
+      <div class="dropdown centered">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Keys
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            {% for key in keys %}
+          <a class="dropdown-item keys" href="#">{{key}}</a>
+            {% endfor %}
+        </div>
+        <button id="keydisplay" value="Select key"></button>
+        <svg id="keytrial" xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-play" viewBox="0 0 16 16">
+          <path d="M10.804 8 5 4.633v6.734L10.804 8zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692z"/>
+        </svg>
+        <div class="dropdown centered">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Select pitch
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <button class="dropdown-item keypitch" value = ' F4'>High</button>
+            <button class="dropdown-item keypitch" value = ' F3'>Medium</button>
+            <button class="dropdown-item keypitch" value = ' F2'>Low</button>
+          </div>
+          <button id="keypitchdisplay" value = "pitch">Select pitch</button>
+        </div>
+        <div class ="dragnote" id = "dragkeynote"></div>
+      </div>
+    </div>
+    <div style="height: 50px;"></div>
+
+
+      <!--Selection of strings-->
+      <div class="stringmenu">
+      <div class="dropdown centered">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Strings
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          {% for string in strings %}
+          <a class="dropdown-item strings" href="#">{{string}}</a>
+          {% endfor %}
+        </div>
+        <button id="stringdisplay" value="Select string"></button>
+        <svg id="stringtrial" xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="currentColor" class="bi bi-play" viewBox="0 0 16 16">
+          <path d="M10.804 8 5 4.633v6.734L10.804 8zm.792-.696a.802.802 0 0 1 0 1.392l-6.363 3.692C4.713 12.69 4 12.345 4 11.692V4.308c0-.653.713-.998 1.233-.696l6.363 3.692z"/>
+        </svg>
+        <div class="dropdown centered">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Select pitch
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <button class="dropdown-item stringpitch" value = ' F4'>High</button>
+            <button class="dropdown-item stringpitch" value = ' F3'>Medium</button>
+            <button class="dropdown-item stringpitch" value = ' F2'>Low</button>
+          </div>
+          <button id="stringpitchdisplay" value = "pitch">Select pitch</button>
+      </div>
+      <div class ="dragnote" id = "dragstringnote"></div>
+    </div>
+  </div>
+  <div style="height: 50px;"></div>
+  <div class="centered">
+    <form class = "centered" action="/finish_track" method="post">
+      <button id="done" class="donebutton">Done</button>
+    </form>
+  </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+          const screenwidth = screen.width;
+          //TRASHCAN PROGRAMMING
+          var trashcan = document.getElementById("trashcan");
+          var notes = document.querySelectorAll(".dragbutton");
+          setInterval(function(){
+          notes.forEach(function(button){
+            var trashcan_rect = trashcan.getBoundingClientRect();
+            var button_rect = button.getBoundingClientRect();
+            if (trashcan_rect.left < button_rect.right && trashcan_rect.right > button_rect.left && trashcan_rect.top < button_rect.bottom &&
+            trashcan_rect.bottom > button_rect.top){
+                button.remove();
+              }
+          });
+        }, 2);
+          //MUSICLINE MOVEMENT
+          let musicline = document.getElementById('musicline');
+          // Anime.js animation of the music line
+          anime({
+            targets: musicline,
+            translateX: screenwidth, // Total distance to move
+            duration: 7500,  // Animation duration in milliseconds
+            loop: true,       // Loop the animation
+            easing: 'linear'  // Linear easing for smooth motion
+          });
+
+          //PLAY NOTES ON THE MUSICLINE
+          setInterval(function()
+          {
+            var musicline_rect = musicline.getBoundingClientRect();
+            notes = document.querySelectorAll('.dragbutton');
+            notes.forEach(function(button)
+            {
+              var button_rect = button.getBoundingClientRect();
+              if (musicline_rect.right >= button_rect.left && musicline_rect.left <= button_rect.right && musicline_rect.bottom >=
+              button_rect.top && musicline_rect.top <= button_rect.bottom)
+              {
+                let variableName = button.value;
+                fetch(`static/${variableName}.wav`)
+                .then(response => response.blob())
+                .then(blob =>
+                {
+                  const url = URL.createObjectURL(blob);
+                  const audio = new Audio(url);
+                  audio.addEventListener('error', function()
+                  {
+                    console.error('Error occurred when trying to play the audio');
+                  });
+                  audio.play();
+                })
+                .catch(error =>
+                {
+                console.error('Something is no yes', error);
+                });
+              }
+            });
+          }, 400);
+
+           //MAKE THE NOTES DRAGGABLE
+
+          //Make the DIV element draggagle:
+          //NOTE: All acknowledgements to the following code to: https://www.w3schools.com/howto/howto_js_draggable.asp
+          function dragElement(elmnt) {
+            var pos1 = 0, pos2 = 0, pos3 = 0, pos4 = 0;
+            console.log('Function executed');
+            if (document.getElementById(elmnt.id + "header")) {
+              /* if present, the header is where you move the DIV from:*/
+              document.getElementById(elmnt.id + "header").onmousedown = dragMouseDown;
+            } else {
+              /* otherwise, move the DIV from anywhere inside the DIV:*/
+              elmnt.onmousedown = dragMouseDown;
+            }
+
+            function dragMouseDown(e) {
+              e = e || window.event;
+              e.preventDefault();
+              // get the mouse cursor position at startup:
+              pos3 = e.clientX;
+              pos4 = e.clientY;
+              document.onmouseup = closeDragElement;
+              // call a function whenever the cursor moves:
+              document.onmousemove = elementDrag;
+            }
+
+            function elementDrag(e) {
+              e = e || window.event;
+              e.preventDefault();
+              // calculate the new cursor position:
+              pos1 = pos3 - e.clientX;
+              pos2 = pos4 - e.clientY;
+              pos3 = e.clientX;
+              pos4 = e.clientY;
+              // set the element's new position:
+              elmnt.style.top = (elmnt.offsetTop - pos2) + "px";
+              elmnt.style.left = (elmnt.offsetLeft - pos1) + "px";
+            }
+
+            function closeDragElement() {
+              /* stop moving when mouse button is released:*/
+              document.onmouseup = null;
+              document.onmousemove = null;
+            }
+          }
+
+          //Array of all draggable divs
+          const draggableDivs = [];
+
+          //INSTRUMENT SELECTION
+          //Bases
+          let bases = document.querySelectorAll(".bases")
+          let basedisplay = document.getElementById("basedisplay")
+          basedisplay.innerHTML = basedisplay.value
+          bases.forEach(function(button)
+          {
+            button.addEventListener('click', function(e)
+            {
+              basedisplay.value = button.innerHTML;
+              basedisplay.innerHTML = button.innerHTML;
+            });
+          });
+
+          //Strings
+          let strings = document.querySelectorAll(".strings")
+          let stringdisplay = document.getElementById("stringdisplay")
+          stringdisplay.innerHTML = stringdisplay.value
+          strings.forEach(function(button)
+          {
+            button.addEventListener('click', function(e)
+            {
+              stringdisplay.value = button.innerHTML;
+              stringdisplay.innerHTML = button.innerHTML;
+            });
+          });
+
+          //Keys
+          let keys = document.querySelectorAll(".keys")
+          let keydisplay = document.getElementById("keydisplay")
+          keydisplay.innerHTML = keydisplay.value
+          keys.forEach(function(button)
+          {
+            button.addEventListener('click', function(e)
+            {
+              keydisplay.value = button.innerHTML;
+              keydisplay.innerHTML = button.innerHTML;
+            });
+          });
+
+          //PITCH SELECTION
+
+          //Bases
+          let basepitch = document.querySelectorAll(".basepitch")
+          let basepitchdisplay = document.getElementById("basepitchdisplay")
+          basepitch.forEach(function(button)
+          {
+            button.addEventListener('click', function(e)
+            {
+              basepitchdisplay.innerHTML = button.innerHTML;
+              basepitchdisplay.value = button.value;
+            });
+          });
+
+          //Keys
+
+          let keypitch = document.querySelectorAll(".keypitch")
+          let keypitchdisplay = document.getElementById("keypitchdisplay")
+          keypitch.forEach(function(button)
+          {
+            button.addEventListener('click', function(e)
+            {
+              keypitchdisplay.innerHTML = button.innerHTML;
+              keypitchdisplay.value = button.value;
+            });
+          });
+
+          //Strings
+          let stringpitch = document.querySelectorAll(".stringpitch")
+          let stringpitchdisplay = document.getElementById("stringpitchdisplay")
+          stringpitch.forEach(function(button)
+          {
+            button.addEventListener('click', function(e)
+            {
+              stringpitchdisplay.innerHTML = button.innerHTML;
+              stringpitchdisplay.value = button.value;
+            });
+          });
+
+          //REQUEST TO HEAR A NOTE (AND CREATE A BUTTON TO DRAG IT ON THE MUSICLINE)
+
+          //Base
+          document.getElementById('basetrial').addEventListener('click', function()
+          {
+            if (basedisplay.value == 'Select base' || basepitchdisplay.value == 'pitch'){
+              return;
+            }
+            let variableName = basedisplay.value + basepitchdisplay.value;
+            fetch(`static/${variableName}.wav`)
+            .then(response => response.blob())
+            .then(blob =>
+            {
+              const url = URL.createObjectURL(blob);
+              const audio = new Audio(url);
+              audio.addEventListener('error', function() {
+                console.error('Error occurred when trying to play the audio');
+              });
+              audio.play();
+              const dragDiv = document.createElement('div');
+              dragDiv.className = 'draggable';
+              const dragButton = document.createElement('button');
+              dragButton.value = variableName;
+              const InsertHere = document.getElementById('basemenu');
+              InsertHere.insertAdjacentElement('beforeend', dragDiv);
+              dragDiv.appendChild(dragButton);
+              dragButton.style.width = '50px';
+              dragButton.style.height = '50px';
+              dragButton.className = 'dragbutton';
+              dragButton.style.backgroundImage = "url('/static/graphics/basenote.svg')";
+              draggableDivs.push(dragDiv);
+              dragElement(dragDiv);
+              console.log('New div created');
+            })
+            .catch(error =>
+            {
+              console.error('Something is no yes', error);
+            });
+          });
+
+          //Keys
+          document.getElementById('keytrial').addEventListener('click', function()
+          {
+            if (keydisplay.value == 'Select key' || keypitchdisplay.value == 'pitch'){
+              return;
+            }
+            let variableName = keydisplay.value + keypitchdisplay.value;
+            fetch(`static/${variableName}.wav`)
+            .then(response => response.blob())
+            .then(blob =>
+            {
+              const url = URL.createObjectURL(blob);
+              const audio = new Audio(url);
+              audio.addEventListener('error', function() {
+                console.error('Error occurred when trying to play the audio');
+              });
+              audio.play();
+              const dragDiv = document.createElement('div');
+              dragDiv.className = 'draggable';
+              const dragButton = document.createElement('button');
+              dragButton.value = variableName;
+              const InsertHere = document.getElementById('basemenu');
+              InsertHere.insertAdjacentElement('beforeend', dragDiv);
+              dragDiv.appendChild(dragButton);
+              dragButton.style.width = '50px';
+              dragButton.style.height = '50px';
+              dragButton.className = 'dragbutton';
+              dragButton.style.backgroundImage = "url('/static/graphics/keynote.svg')";
+              draggableDivs.push(dragDiv);
+              dragElement(dragDiv);
+              console.log('New div created');
+            })
+            .catch(error =>
+            {
+              console.error('Something is no yes', error);
+            });
+          });
+
+          //Strings
+          document.getElementById('stringtrial').addEventListener('click', function()
+          {
+            if (stringdisplay.value == 'Select string' || stringpitchdisplay.value == 'pitch'){
+              return;
+            }
+            let variableName = stringdisplay.value + stringpitchdisplay.value;
+            fetch(`static/${variableName}.wav`)
+            .then(response => response.blob())
+            .then(blob =>
+            {
+              const url = URL.createObjectURL(blob);
+              const audio = new Audio(url);
+              audio.addEventListener('error', function() {
+                console.error('Error occurred when trying to play the audio');
+              });
+              audio.play();
+              const dragDiv = document.createElement('div');
+              dragDiv.className = 'draggable';
+              const dragButton = document.createElement('button');
+              dragButton.value = variableName;
+              const InsertHere = document.getElementById('basemenu');
+              InsertHere.insertAdjacentElement('beforeend', dragDiv);
+              dragDiv.appendChild(dragButton);
+              dragButton.style.width = '50px';
+              dragButton.style.height = '50px';
+              dragButton.className = 'dragbutton';
+              dragButton.style.backgroundImage = "url('/static/graphics/stringnote.svg')";
+              draggableDivs.push(dragDiv);
+              dragElement(dragDiv);
+              console.log('New div created');
+            })
+            .catch(error =>
+            {
+              console.error('Something is no yes', error);
+            });
+          });
+
+          let notes_array = [];
+          let note_positions = [];
+          document.getElementById('done').addEventListener('click', function(e){
+            const note = document.querySelectorAll(".dragbutton");
+            note.forEach(function(e){
+              var position = e.getBoundingClientRect().left;
+              notes_array.push(e.value);
+              note_positions.push(position);
+            });
+            let data = {notes: notes_array, positions: note_positions};
+            let json_data = JSON.stringify(data);
+            fetch('/process_notes',
+            {
+              method: 'POST',
+              body: json_data,
+              headers: {'Content-Type': 'application/json'}
+            });
+            console.log('clicked');
+          });
+  });
+    </script>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Create Track
+{% endblock %}
+
+{% block body %}
+<div class="centered">
+    <div class="topdivide"></div>
+    <br>
+    <div class = "error">
+    {{ error }}
+    </div>
+    <br>
+    <h4 class = "centered">Great stuff! Add some information to your track.</h4>
+    <br>
+    <div class="centered">
+        Here's how you felt today:
+    </div>
+    <div class="topdivide centered"></div>
+    <div class="btn-group centered" role="group" aria-label="Basic example">
+        {% for mood in moods %}
+        <button type="button" class="btn btn-secondary" disabled value = "{{ mood }}">{{ mood }}</button>
+        {% endfor %}
+      </div>
+      <form class = "centered" action="/save_track" method="post">
+        <label> Name your track:</label>
+        <input type="text" id="trackname" name="trackname" placeholder="Track name...">
+        <button id="done" class="donebutton">Done</button>
+      </form>
+    <br><br>
+</div>
+{% endblock %}

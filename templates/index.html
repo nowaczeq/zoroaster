@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Welcome!
+{% endblock %}
+
+{% block body %}
+    <div class = "error">
+    {{ error }}
+    </div>
+    <div class="topdivide"></div>
+    <div class="index_images">
+        <img src="/static/graphics/mainlogo.svg" style="height: 400px; width: 340px" class="body-centered logo"></img>
+    </div>
+    <br>
+    <h1 class = "centered">Welcome to Zoroaster: A musical app for mental wellbeing.</h1>
+    <br><br><br>
+    <div class="container centered">
+        <p> <h3>Zoroaster is an application which allows you to express your feelings through creating music.</h3></p>
+        <div style="height: 25px"></div>
+        <p><h4>Create short, 15 second pieces using the background theme and instruments of your choosing.</h4></p>
+        <div style="height: 25px"></div>
+        <p><h4>Log in to start creating your own pieces, or to take a guided tour of the app.</h4></p>
+        <div style="height: 25px"></div>
+        <p><h5>Use headphones to get the best Zoroaster experience.</h5></p>
+    </div>
+    <div style="height: 50px"></div>
+    <div class="container centered">
+        <table>
+            <tr>
+            <form action="/thankyou">
+                <button class="btn btn-primary" type="submit">Acknowledgements</button>
+            </form>
+            </tr>
+            <tr>
+            <form action="/login">
+                <button class="btn btn-primary" type="submit">Log In</button>
+            </form>
+            </tr>
+            <tr>
+            <form action="/register">
+                <button class="btn btn-primary" type="submit">Register</button>
+            </form>
+            </tr>
+    </table>
+    <div class="topdivide"></div>
+    </div>
+{% endblock %}
